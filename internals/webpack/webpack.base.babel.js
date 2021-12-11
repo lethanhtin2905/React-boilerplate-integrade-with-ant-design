@@ -20,6 +20,24 @@ module.exports = options => ({
   module: {
     rules: [
       {
+        test: /\.less$/,
+        include: [/\.css$/, /node_modules/],
+        use: [
+          {
+            loader: 'style-loader', // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            },
+          },
+        ],
+      },
+      {
         test: /\.jsx?$/, // Transform all .js and .jsx files required somewhere with Babel
         exclude: /node_modules/,
         use: {
@@ -115,6 +133,7 @@ module.exports = options => ({
       NODE_ENV: 'development',
     }),
   ]),
+
   resolve: {
     modules: ['node_modules', 'app'],
     extensions: ['.js', '.jsx', '.react.js'],
